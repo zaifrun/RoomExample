@@ -1,14 +1,31 @@
 package org.pondar.roomexample
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.room.Room
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import org.pondar.roomexample.models.Book
 import org.pondar.roomexample.models.BookDao
 
 object Repository {
 
-    lateinit var bookDao : BookDao
+    private lateinit var bookDao : BookDao
     private var db : MyDataBase? = null
 
+
+    fun getAllBooks() : LiveData<List<Book>>
+    {
+        return bookDao.getAllBooks()
+    }
+
+    suspend fun deleteAll() {
+        bookDao.deleteAll()
+    }
+
+    suspend fun addBook(book: Book) {
+        bookDao.addBook(book)
+    }
 
     fun initRepository(context: Context){
         if (db==null) {
