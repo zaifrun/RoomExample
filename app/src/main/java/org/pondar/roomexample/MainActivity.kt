@@ -3,6 +3,9 @@ package org.pondar.roomexample
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.pondar.roomexample.models.Book
 
 class MainActivity : AppCompatActivity() {
@@ -14,7 +17,9 @@ class MainActivity : AppCompatActivity() {
 
         Repository.bookDao.getAllBooks().observe(this, {
             if (it.size>0) {
-                Log.d("Loaded books:","book 1: "+it.get(0).toString())
+                Log.d("ReceivedData","Data from database")
+                for (book in it)
+                    Log.d("Book:",book.toString())
             }
         })
     }
@@ -23,8 +28,25 @@ class MainActivity : AppCompatActivity() {
 
     fun addTestData()
     {
-        val book1 = Book("123","War and Peace","Tolstoy",1800)
-        Repository.bookDao.addBook(book1)
+
+        Log.d("AddTestData","Adding test data")
+        val book1 = Book("1234","Brothers Karamazov","Dostojevski",1850)
+        val book2 =  Book("123","War and peace","Tolstoy",1830)
+
+
+        GlobalScope.launch(Dispatchers.IO) {
+
+            Repository.bookDao.deleteAll()
+            var id = Repository.bookDao.addBook(book1)
+            Log.d("book added"," id = $id")
+
+            id = Repository.bookDao.addBook(book2)
+            Log.d("book added"," id = $id")
+
+
+
+        }
+
     }
 
     fun initRepository()
