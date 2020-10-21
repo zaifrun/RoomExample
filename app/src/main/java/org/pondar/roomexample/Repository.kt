@@ -7,7 +7,7 @@ import org.pondar.roomexample.models.BookDao
 object Repository {
 
     lateinit var bookDao : BookDao
-    var db : MyDataBase? = null
+    private var db : MyDataBase? = null
 
 
     fun initRepository(context: Context){
