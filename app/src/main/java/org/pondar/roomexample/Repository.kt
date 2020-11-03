@@ -13,11 +13,25 @@ object Repository {
     private var db : MyDataBase? = null
 
 
+    //This returns a LiveData object that we can observe
+    //So this already happens in the background
     fun getAllBooks() : LiveData<List<Book>>
     {
         return bookDao.getAllBooks()
     }
 
+    fun getByISBN(isbnNr: String) : LiveData<Book>
+    {
+        return bookDao.getByIsbn(isbnNr)
+    }
+
+
+    suspend fun updateBook(book:Book) : Int{
+        return bookDao.updateBook(book)
+    }
+
+
+    //suspends indicates this cannot be called on the main thread
     suspend fun deleteAll() {
         bookDao.deleteAll()
     }
