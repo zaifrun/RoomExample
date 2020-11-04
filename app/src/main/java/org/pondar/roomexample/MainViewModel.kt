@@ -9,8 +9,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.pondar.roomexample.models.Book
 import org.pondar.roomexample.models.Publisher
+import org.pondar.roomexample.models.PublishersWithBooks
 
 class MainViewModel(application : Application): AndroidViewModel(application) {
+
+    lateinit var books: List<Book>
+    lateinit var publishers: List<Publisher>
+    lateinit var publishersWithBook: List<PublishersWithBooks>
 
 
     fun updateBook(book:Book){

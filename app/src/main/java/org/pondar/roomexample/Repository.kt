@@ -57,24 +57,6 @@ object Repository {
         return publisherDao.addPublisher(publisher)
     }
 
-
-   /* fun addPublisher(publisher:Publisher) : LiveData<Long>
-    {
-        val id = publisherDao.addPublisher(publisher)
-        var liveData = MutableLiveData<Long>()
-        liveData.value =id
-        return liveData
-    }*/
-
-    /*
-    suspend(task: Task): LiveData<Long> {
-        val liveData = MutableLiveData<Long>()
-        viewModelScope.launch {
-            liveData.value = dao.insertTask(task)
-        }
-        return liveData
-    }*/
-
     fun initRepository(context: Context){
         if (db==null) {
             db = Room.databaseBuilder(

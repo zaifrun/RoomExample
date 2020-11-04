@@ -12,9 +12,7 @@ import org.pondar.roomexample.models.PublishersWithBooks
 class MainActivity : AppCompatActivity() {
 
     lateinit var viewModel: MainViewModel
-    lateinit var books: List<Book>
-    lateinit var publishers: List<Publisher>
-    lateinit var publishersWithBook: List<PublishersWithBooks>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,15 +21,14 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
 
-        viewModel.addTestData()
+       // viewModel.addTestData()
 
         Repository.getAllBooks().observe(this, {
             if (it.size > 0) {
-                books = it
+                viewModel.books = it
                 //update UI
                 Log.d("ReceivedData", "Books from database")
                 for (book in it)
@@ -43,14 +40,14 @@ class MainActivity : AppCompatActivity() {
             if (it.isEmpty())
                 return@observe
             Log.d("ReceivedData", "Publishers from database")
-            publishers = it
+            viewModel.publishers = it
             //update UI
             for (publisher in it)
                 Log.d("Publisher:", publisher.toString())
 
 
             Repository.getAllBooksFromPublisher(it.get(0)).observe(this, {
-                publishersWithBook = it
+                viewModel.publishersWithBook = it
                 //update UI
                 for (publisher in it) {
                     Log.d("Pubslisher:", publisher.publisher.toString())
@@ -64,12 +61,8 @@ class MainActivity : AppCompatActivity() {
             })
         })
 
-
-
-
-
         updateButton.setOnClickListener {
-            val book = books.get(0)
+            val book = viewModel.books.get(0)
             book.publishedYear = 2020
             viewModel.updateBook(book)
 
