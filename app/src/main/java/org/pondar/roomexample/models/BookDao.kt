@@ -12,6 +12,9 @@ interface BookDao {
     @Query("SELECT * FROM books WHERE isbn=:isbnNr")
     fun getByIsbn(isbnNr: String):LiveData<Book>
 
+    //Ignore means that we will ignore if we try to insert a
+    //book with the same primary key
+    //Alternatives are: Replace
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addBook(book: Book) : Long
 
