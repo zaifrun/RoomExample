@@ -36,10 +36,9 @@ class MainViewModel(application : Application): AndroidViewModel(application) {
 
 
            Log.d("AddTestData", "Adding test data")
-           val book1 = Book("1234", "Brothers Karamazov", "Dostojevski", 1850)
-           val book2 = Book("123", "War and peace", "Tolstoy", 1830)
-           book1.publisher_ID = publisherID1
-           book2.publisher_ID = publisherID1
+           val book1 = Book("1234", "Brothers Karamazov", "Dostojevski", 1850,publisherID1)
+           val book2 = Book("123", "War and peace", "Tolstoy", 1830,publisherID1)
+
 
            var id = Repository.addBook(book1)
             Log.d("book added", " id = $id")

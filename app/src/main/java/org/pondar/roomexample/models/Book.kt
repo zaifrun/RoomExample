@@ -19,7 +19,9 @@ data class Book(
     var title: String = "",
     var author: String = "",
     var publishedYear: Int,
-    var publisher_ID:Long? = null
+    //A Foreign key
+    var publisher_ID:Long
+
 ) {
 
     //This means that picture will NOT be in the database schema
@@ -28,5 +30,4 @@ data class Book(
     @Ignore
     var picture: Bitmap? = null
 
-    //A Foreign key
 }

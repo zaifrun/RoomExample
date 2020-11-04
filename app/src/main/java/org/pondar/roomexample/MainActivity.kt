@@ -33,17 +33,20 @@ class MainActivity : AppCompatActivity() {
             if (it.size > 0) {
                 books = it
                 //update UI
-                Log.d("ReceivedData", "Data from database")
+                Log.d("ReceivedData", "Books from database")
                 for (book in it)
                     Log.d("Book:", book.toString())
             }
         })
 
         Repository.getAllPublishers().observe(this, {
+            if (it.isEmpty())
+                return@observe
+            Log.d("ReceivedData", "Publishers from database")
             publishers = it
             //update UI
             for (publisher in it)
-                Log.d("Pubsliher:", publisher.toString())
+                Log.d("Publisher:", publisher.toString())
 
 
             Repository.getAllBooksFromPublisher(it.get(0)).observe(this, {
@@ -66,7 +69,8 @@ class MainActivity : AppCompatActivity() {
 
 
         updateButton.setOnClickListener {
-            val book = Book("123", "War and peace", "Tolstoy", 1840)
+            val book = books.get(0)
+            book.publishedYear = 2020
             viewModel.updateBook(book)
 
         }
