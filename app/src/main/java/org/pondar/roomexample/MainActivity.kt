@@ -18,12 +18,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Repository.initRepository(this)
-
-
-
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-
+        // To insert some test data - also clears the database
        // viewModel.addTestData()
 
         Repository.getAllBooks().observe(this, {
@@ -37,25 +34,21 @@ class MainActivity : AppCompatActivity() {
         })
 
         Repository.getAllPublishers().observe(this, {
-            if (it.isEmpty())
+            if (it.isEmpty())  //if no data - then just return.
                 return@observe
             Log.d("ReceivedData", "Publishers from database")
             viewModel.publishers = it
-            //update UI
+            //update UI here for instance.
             for (publisher in it)
                 Log.d("Publisher:", publisher.toString())
-
 
             Repository.getAllBooksFromPublisher(it.get(0)).observe(this, {
                 viewModel.publishersWithBook = it
                 //update UI
                 for (publisher in it) {
-                    Log.d("Pubslisher:", publisher.publisher.toString())
+                    Log.d("Pubslisher_book_list", publisher.publisher.toString())
                     for (book in publisher.books)
-                    {
                         Log.d("Book:", book.toString())
-
-                    }
                 }
 
             })
