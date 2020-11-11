@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         Repository.initRepository(this)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-        // To insert some test data - also clears the database
+        // To insert some test data - NOTE: also clears the database
        // viewModel.addTestData()
 
         Repository.getAllBooks().observe(this, {
