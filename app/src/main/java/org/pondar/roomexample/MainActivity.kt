@@ -3,6 +3,7 @@ package org.pondar.roomexample
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_main.*
 import org.pondar.roomexample.models.Book
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         // To insert some test data - NOTE: also clears the database
        // viewModel.addTestData()
 
-        Repository.getAllBooks().observe(this, {
+        Repository.getAllBooks().observe(this, Observer{
             if (it.size > 0) {
                 viewModel.books = it
                 //update UI
