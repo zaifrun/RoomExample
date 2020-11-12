@@ -34,16 +34,16 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        Repository.getAllPublishers().observe(this, {
+        Repository.getAllPublishers().observe(this, Observer{
             if (it.isEmpty())  //if no data - then just return.
-                return@observe
+                return@Observer
             Log.d("ReceivedData", "Publishers from database")
             viewModel.publishers = it
             //update UI here for instance.
             for (publisher in it)
                 Log.d("Publisher:", publisher.toString())
 
-            Repository.getAllBooksFromPublisher(it.get(0)).observe(this, {
+            Repository.getAllBooksFromPublisher(it.get(0)).observe(this,Observer {
                 viewModel.publishersWithBook = it
                 //update UI
                 for (publisher in it) {
