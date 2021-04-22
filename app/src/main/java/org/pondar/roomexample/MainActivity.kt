@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         // To insert some test data - NOTE: also clears the database
-       // viewModel.addTestData()
+       viewModel.addTestData()
 
         Repository.getAllBooks().observe(this, Observer{
             if (it.size > 0) {

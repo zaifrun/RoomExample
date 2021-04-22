@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RoomExample</string>
+    <string name="look_in_the_logcat_and_use_the_database_inspector">Look in the logcat and use the database inspector</string>
+    <string name="update">Update</string>
 </resources>
