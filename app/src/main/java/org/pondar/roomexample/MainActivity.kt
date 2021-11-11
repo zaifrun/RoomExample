@@ -6,9 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_main.*
-import org.pondar.roomexample.models.Book
-import org.pondar.roomexample.models.Publisher
-import org.pondar.roomexample.models.PublishersWithBooks
 
 class MainActivity : AppCompatActivity() {
 
