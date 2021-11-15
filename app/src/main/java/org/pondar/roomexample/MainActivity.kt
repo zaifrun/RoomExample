@@ -6,10 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_main.*
+import org.pondar.roomexample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var viewModel: MainViewModel
+
+    private lateinit var binding: ActivityMainBinding
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,13 +25,21 @@ class MainActivity : AppCompatActivity() {
         // To insert some test data - NOTE: also clears the database
        viewModel.addTestData()
 
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
         Repository.getAllBooks().observe(this, Observer{
             if (it.size > 0) {
                 viewModel.books = it
                 //update UI
                 Log.d("ReceivedData", "Books from database")
-                for (book in it)
+                var res = ""
+                for (book in it) {
                     Log.d("Book:", book.toString())
+                    res+=book.toString()+"\n\n"
+                }
+                binding.booksTextView.text = res
             }
         })
 
@@ -37,8 +49,12 @@ class MainActivity : AppCompatActivity() {
             Log.d("ReceivedData", "Publishers from database")
             viewModel.publishers = it
             //update UI here for instance.
-            for (publisher in it)
+            var res = ""
+            for (publisher in it) {
                 Log.d("Publisher:", publisher.toString())
+                res+=publisher.toString()+"\n\n"
+            }
+            binding.publisherTextView.text = res
 
             Repository.getAllBooksFromPublisher(it.get(0)).observe(this,Observer {
                 viewModel.publishersWithBook = it

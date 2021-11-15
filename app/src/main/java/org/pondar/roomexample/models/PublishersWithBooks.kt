@@ -7,8 +7,8 @@ data class PublishersWithBooks(
     @Embedded
     val publisher: Publisher,
     @Relation(
-        parentColumn = "publisherID",
-        entityColumn = "publisher_ID"
+        parentColumn = "publisherID", //from publisher table
+        entityColumn = "publisher_ID" //from books table
     )
     val books: List<Book>
 
